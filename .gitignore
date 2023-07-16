@@ -11,6 +11,9 @@ autom4te.cache/
 tarballs/
 test-results/
 
+appsettings.json
+**/Migrations/*
+
 # Mac bundle stuff
 *.dmg
 *.app
