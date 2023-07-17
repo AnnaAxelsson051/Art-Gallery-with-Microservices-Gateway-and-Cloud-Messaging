@@ -10,8 +10,15 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
     <None Remove="Utility\" />
+    <None Remove="Service\" />
+    <None Remove="Service\IService\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utility\" />
+    <Folder Include="Service\" />
+    <Folder Include="Service\IService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 </Project>
