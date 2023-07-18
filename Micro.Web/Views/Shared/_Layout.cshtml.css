@@ -1,16 +1,25 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+.bi-easel-fill, .bi-easel, .bi-cart3 {
+    color: green;
+    color: #37FF8B;
+}
+
+
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+    color: #37FF8B;
+    border: 1px solid #37FF8B;
+    text-shadow: 2px 2px 3px #37FF8B;
 }
 
-a {
-  color: #0077cc;
+.bi-palette-fill {
+    height:50px;
+    width:50px;
 }
-
 .btn-primary {
   color: #fff;
   background-color: #1b6ec2;
@@ -37,6 +46,11 @@ a {
 button.accept-policy {
   font-size: 1rem;
   line-height: inherit;
+}
+
+.test {
+    background-image: url("hero.png");
+    height:100vh;
 }
 
 .footer {
