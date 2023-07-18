@@ -12,12 +12,14 @@
     <None Remove="Utility\" />
     <None Remove="Service\" />
     <None Remove="Service\IService\" />
+    <None Remove="Views\Coupon\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utility\" />
     <Folder Include="Service\" />
     <Folder Include="Service\IService\" />
     <Folder Include="wwwroot\images\" />
+    <Folder Include="Views\Coupon\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
