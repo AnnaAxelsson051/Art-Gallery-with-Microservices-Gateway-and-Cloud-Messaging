@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -36,6 +37,21 @@ namespace Micro.Web.Controllers
         public async Task<IActionResult> CouponCreate()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CouponCreate(CouponDto model)
+        {
+            if (ModelState.IsValid)
+            {
+                ResponseDto? response = await _couponService.CreateCouponsAsync(model);
+
+                if (response != null && response.IsSuccess)
+                {
+                    return RedirectToAction(nameof(CouponIndex));
+                }
+            }
+            return View(model);
         }
     }
 }
