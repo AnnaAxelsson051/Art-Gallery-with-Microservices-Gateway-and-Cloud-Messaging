@@ -11,7 +11,7 @@ namespace Micro.Web.Service
         Task<ResponseDto?> GetCouponByIdAsync(int id);
         Task<ResponseDto?> CreateCouponsAsync(CouponDto couponDto);
         Task<ResponseDto?> UpdateCouponsAsync(CouponDto couponDto);
-        Task<ResponseDto?> DeleteCouponAsync(int id);
+        Task<ResponseDto?> DeleteCouponsAsync(int id);
 
     }
 }
