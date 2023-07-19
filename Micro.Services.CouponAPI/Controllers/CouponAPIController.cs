@@ -97,6 +97,7 @@ namespace Micro.Services.CouponAPI.Controllers
 
         //Create a coupon
         [HttpDelete]
+        [Route("{id:int}")]
         public ResponseDto Delete(int id)
         {
             try
