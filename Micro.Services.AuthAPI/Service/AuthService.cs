@@ -9,7 +9,6 @@ namespace Micro.Services.AuthAPI.Service
 {
     public class AuthService : IAuthService
     {
-
         private readonly AppDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -24,12 +23,22 @@ namespace Micro.Services.AuthAPI.Service
             _roleManager = roleManager;
         }
 
-        //AssignRole method
+        public async Task<bool> AssignRole(string email, string roleName)
+        {
+            var user = _db.ApplicationUsers.FirstOrDefault(u => u.Email.ToLower() == email.ToLower());
+            if (user != null)
+            {
+                if (!_roleManager.RoleExistsAsync(roleName).GetAwaiter().GetResult())
+                {
+                    //create role if it does not exist
+                    _roleManager.CreateAsync(new IdentityRole(roleName)).GetAwaiter().GetResult();
+                }
+                await _userManager.AddToRoleAsync(user, roleName);
+                return true;
+            }
+            return false;
 
-
-
-
-
+        }
 
         public async Task<LoginResponseDto> Login(LoginRequestDto loginRequestDto)
         {
@@ -43,7 +52,7 @@ namespace Micro.Services.AuthAPI.Service
             }
 
             //if user was found , Generate JWT Token
-
+            var roles = await _userManager.GetRolesAsync(user);
             var token = _jwtTokenGenerator.GenerateToken(user);
 
             UserDto userDTO = new()
@@ -62,7 +71,6 @@ namespace Micro.Services.AuthAPI.Service
 
             return loginResponseDto;
         }
-
 
         public async Task<string> Register(RegistrationRequestDto registrationRequestDto)
         {

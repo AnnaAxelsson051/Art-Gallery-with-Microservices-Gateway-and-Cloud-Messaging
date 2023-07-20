@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Text;
 using Micro.Services.AuthAPI.Models;
 using Micro.Services.AuthAPI.Service.IService;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Micro.Services.AuthAPI.Service
@@ -11,9 +12,9 @@ namespace Micro.Services.AuthAPI.Service
     public class JwtTokenGenerator : IJwtTokenGenerator
     {
         private readonly JwtOptions _jwtOptions;
-        public JwtTokenGenerator(JwtOptions jwtOptions)
+        public JwtTokenGenerator(IOptions<JwtOptions> jwtOptions)
         {
-            _jwtOptions = jwtOptions;
+            _jwtOptions = jwtOptions.Value;
         }
 
         public string GenerateToken(ApplicationUser applicationUser)

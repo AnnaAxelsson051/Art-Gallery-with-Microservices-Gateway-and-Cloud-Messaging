@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Micro.Services.AuthAPI.Models.Dto
+namespace Micro.Web.Models
 {
 	public class RegistrationRequestDto
 
