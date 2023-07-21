@@ -13,6 +13,7 @@
     <None Remove="Service\" />
     <None Remove="Service\IService\" />
     <None Remove="Views\Coupon\" />
+    <None Remove="Views\Auth\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utility\" />
@@ -20,6 +21,7 @@
     <Folder Include="Service\IService\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="Views\Coupon\" />
+    <Folder Include="Views\Auth\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -27,6 +29,7 @@
   <ItemGroup>
     <Content Remove="wwwroot\images\" />
     <Content Remove="wwwroot\images\hero.png" />
+    <Content Remove="wwwroot\images\hero9.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Views\Shared\_Layout.cshtml">

@@ -22,6 +22,12 @@ a.navbar-brand {
     color: #37FF8B;
     text-shadow: 1px 1px 3px #37FF8B;
 }
+
+.bi-house {
+    text-shadow: none;
+    color: #37FF8B;
+}
+
 .btn-primary {
   color: #fff;
   background-color: #1b6ec2;
