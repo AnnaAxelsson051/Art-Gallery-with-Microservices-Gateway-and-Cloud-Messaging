@@ -31,7 +31,7 @@ namespace Micro.Web.Service
                 ApiType = SD.ApiType.POST,
                 Data = loginRequestDto,
                 Url = SD.AuthAPIBase + "/api/auth/login"
-            });
+            }, withBearer: false);
         }
 
         public async Task<ResponseDto?> RegisterAsync(RegistrationRequestDto registrationRequestDto)
@@ -41,7 +41,7 @@ namespace Micro.Web.Service
                 ApiType = SD.ApiType.POST,
                 Data = registrationRequestDto,
                 Url = SD.AuthAPIBase + "/api/auth/register"
-            });
+            }, withBearer: false);
         }
     }
 }

@@ -28,11 +28,13 @@
     <None Remove="Models\Dto\" />
     <None Remove="Data\" />
     <None Remove="Controllers\" />
+    <None Remove="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Models\Dto\" />
     <Folder Include="Data\" />
     <Folder Include="Controllers\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
 </Project>
