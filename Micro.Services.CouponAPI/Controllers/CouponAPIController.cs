@@ -6,12 +6,14 @@ using AutoMapper;
 using Micro.Services.CouponAPI.Data;
 using Micro.Services.CouponAPI.Models;
 using Micro.Services.CouponAPI.Models.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Micro.Services.CouponAPI.Controllers
 {
     [Route("api/coupon")]
     [ApiController]
+    [Authorize]
     public class CouponAPIController : Controller
     {
         private readonly AppDbContext _db;
