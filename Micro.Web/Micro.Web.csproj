@@ -29,15 +29,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\images\" />
-    <Content Remove="wwwroot\images\hero.png" />
     <Content Remove="wwwroot\images\hero9.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Views\Shared\_Layout.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="wwwroot\images\hero.png" />
   </ItemGroup>
 </Project>
