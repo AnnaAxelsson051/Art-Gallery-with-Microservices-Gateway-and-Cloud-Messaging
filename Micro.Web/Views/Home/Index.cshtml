@@ -1,8 +1,11 @@
-﻿@{
+﻿@model IEnumerable<ProductDto>
+
+@{
     ViewData["Title"] = "Home Page";
 }
+
 <style>
-   
+
 
     .describing-text {
         margin-top: 20px;
@@ -20,7 +23,7 @@
         text-shadow: 5px 5px 15px #37FF8B;
         text-shadow: 3px 3px 15px #37FF8B;
     }
-   
+
     .bi-brush-fill, .bi-brush, .bi-house {
         text-shadow: none;
         color: #37FF8B;
@@ -31,7 +34,6 @@
         width: 90vw;
         height: auto;
     }
-
 </style>
 <div class="text-center">
 
@@ -43,12 +45,33 @@
             classic pieces and modern art, as well as futuristic styles.
             Our artists range from upcoming underground to well renowned names.
         </p>
-      
+
     </div>
-  
-        <img class="hero-image" src="~/images/hero-blue.png" alt="Image Description">
-   
 
-
+    <img class="hero-image" src="~/images/hero-pink.png" alt="Image Description">
 </div>
 
+<form>
+    <div class="container row">
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="p-0 my-3 border rounded">
+                <div class="card">
+                    <h3 class="card-title text-white-50 text-center py-2">Name</h3>
+                    <img src="https://placehold.co/600x400" class="card-img-top">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between py-2">
+                            <span class="text-danger" style="font-size:20px;">XX</span>
+                            <span class="badge bg-warning text-white p-2">CategoryName</span>
+                        </div>
+                        <p class="card-text">Description</p>
+                        <div class="row">
+                            <div class="col">
+                                <a class="btn btn-success form-control">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
