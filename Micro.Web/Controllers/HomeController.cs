@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Micro.Web.Models;
 using Newtonsoft.Json;
 using Micro.Web.Service;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Micro.Web.Controllers;
 
@@ -33,6 +34,27 @@ public class HomeController : Controller
         return View(list);
     }
 
+
+    //Getting certain product with details
+    [Authorize]
+    public async Task<IActionResult> ProductDetails(int productId)
+    {
+        ProductDto? model = new();
+
+        ResponseDto? response = await _productService.GetProductByIdAsync(productId);
+
+        if (response != null && response.IsSuccess)
+        {
+            model = JsonConvert.DeserializeObject<ProductDto>(Convert.ToString(response.Result));
+        }
+        else
+        {
+            TempData["error"] = response?.Message;
+        }
+
+        return View(model);
+    }
+
     public IActionResult Privacy()
     {
         return View();
@@ -43,5 +65,7 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
+
 }
 
