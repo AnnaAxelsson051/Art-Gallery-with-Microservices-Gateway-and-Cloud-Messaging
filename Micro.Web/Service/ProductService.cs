@@ -2,6 +2,7 @@
 using Micro.Web.Models;
 using Micro.Web.Service.IService;
 using Micro.Web.Utility;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Micro.Web.Service
 {
@@ -13,9 +14,8 @@ namespace Micro.Web.Service
             _baseService = baseService;
         }
 
-        //Creating a requestDto and setting the properties
-        //Using SendAsync for HTTP request, recieving and returning the ResponseDto
-
+        //Creating a new product using the provided ProductDto data and
+        //returns the response as a ResponseDto object
         public async Task<ResponseDto?> CreateProductsAsync(ProductDto productDto)
         {
             return await _baseService.SendAsync(new RequestDto()
@@ -26,6 +26,7 @@ namespace Micro.Web.Service
             });
         }
 
+        //Deletes a product with the specified id
         public async Task<ResponseDto?> DeleteProductsAsync(int id)
         {
             return await _baseService.SendAsync(new RequestDto()
@@ -35,6 +36,7 @@ namespace Micro.Web.Service
             });
         }
 
+        //Retrieves all products from the API
         public async Task<ResponseDto?> GetAllProductsAsync()
         {
             return await _baseService.SendAsync(new RequestDto()
@@ -44,6 +46,7 @@ namespace Micro.Web.Service
             });
         }
 
+        //Retrieves product information based on the provided productCode
         public async Task<ResponseDto?> GetProductAsync(string productCode)
         {
             return await _baseService.SendAsync(new RequestDto()
@@ -53,6 +56,7 @@ namespace Micro.Web.Service
             });
         }
 
+        //Retrieves all products 
         public async Task<ResponseDto?> GetProductByIdAsync(int id)
         {
             return await _baseService.SendAsync(new RequestDto()
@@ -62,6 +66,7 @@ namespace Micro.Web.Service
             });
         }
 
+        //Updates a product using the provided ProductDto data 
         public async Task<ResponseDto?> UpdateProductsAsync(ProductDto productDto)
         {
             return await _baseService.SendAsync(new RequestDto()

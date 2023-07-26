@@ -14,6 +14,7 @@
     <None Remove="Service\IService\" />
     <None Remove="Views\Coupon\" />
     <None Remove="Views\Auth\" />
+    <None Remove="Views\Product\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utility\" />
@@ -22,6 +23,7 @@
     <Folder Include="wwwroot\images\" />
     <Folder Include="Views\Coupon\" />
     <Folder Include="Views\Auth\" />
+    <Folder Include="Views\Product\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

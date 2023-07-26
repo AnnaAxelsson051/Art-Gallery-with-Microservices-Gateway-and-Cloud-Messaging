@@ -19,7 +19,6 @@ namespace Micro.Web.Controllers
         }
 
         //Displaying all the products
-
         public async Task<IActionResult> ProductIndex()
         {
             List<ProductDto>? list = new();
@@ -38,11 +37,13 @@ namespace Micro.Web.Controllers
             return View(list);
         }
 
+        //Rendering a html form to create a product
         public async Task<IActionResult> ProductCreate()
         {
             return View();
         }
 
+        //Calling service to create a product
         [HttpPost]
         public async Task<IActionResult> ProductCreate(ProductDto model)
         {
@@ -63,6 +64,7 @@ namespace Micro.Web.Controllers
             return View(model);
         }
 
+        //Getting product by id deserializing the data returning it to view
         public async Task<IActionResult> ProductDelete(int productId)
         {
             ResponseDto? response = await _productService.GetProductByIdAsync(productId);
@@ -79,6 +81,7 @@ namespace Micro.Web.Controllers
             return NotFound();
         }
 
+        //Deletes a product 
         [HttpPost]
         public async Task<IActionResult> ProductDelete(ProductDto productDto)
         {
