@@ -1,8 +1,8 @@
 ﻿using System.Text;
 using AutoMapper;
-using Micro.Services.ProductAPI;
-using Micro.Services.ProductAPI.Data;
-using Micro.Services.ProductAPI.Extensions;
+using Micro.Services.ShoppingCartAPI;
+using Micro.Services.ShoppingCartAPI.Data;
+using Micro.Services.ShoppingCartAPI.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;

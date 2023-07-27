@@ -1,20 +1,21 @@
 ﻿using System;
 using AutoMapper;
-using Micro.Services.ProductAPI;
-using Micro.Services.ProductAPI.Models;
-using Micro.Services.ProductAPI.Models.Dto;
+using Micro.Services.ShoppingCartAPI;
+using Micro.Services.ShoppingCartAPI.Models;
+using Micro.Services.ShoppingCartAPI.Models.Dto;
 
-namespace Micro.Services.ProductAPI
+namespace Micro.Services.ShoppingCartAPI
 {
-    //Mapping between Coupon and Dto
+    //Mapping to / from Dtos
     public class MappingConfig
     {
         public static MapperConfiguration RegisterMaps()
         {
             var mappingConfig = new MapperConfiguration(config =>
             {
-                config.CreateMap<ProductDto, Product>().ReverseMap(); ;
-            
+                config.CreateMap<CartHeader, CartHeaderDto>().ReverseMap(); ;
+                config.CreateMap<CartDetails, CartDetailsDto>().ReverseMap(); ;
+
             });
             return mappingConfig;
         }
