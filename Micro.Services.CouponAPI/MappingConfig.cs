@@ -5,7 +5,7 @@ using Micro.Services.CouponAPI.Models.Dto;
 
 namespace Micro.Services.CouponAPI
 {
-    //Mapping between Coupon and Dto
+    //Mapping to / from Dtos
     public class MappingConfig
     {
         public static MapperConfiguration RegisterMaps()
