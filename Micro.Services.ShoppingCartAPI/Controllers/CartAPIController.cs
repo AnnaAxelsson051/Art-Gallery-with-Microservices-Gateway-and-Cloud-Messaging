@@ -67,6 +67,27 @@ namespace Micro.Services.ShoppingCartAPI.Controllers
             return _response;
         }
 
+        //When user clicks applycoupon
+        //allows the user to apply a coupon code to their shopping cart,
+        //updating the carts coupon code in db
+        [HttpPost("ApplyCoupon")]
+        public async Task<object> ApplyCoupon([FromBody] CartDto cartDto)
+        {
+            try
+            {
+                var cartFromDb = await _db.CartHeaders.FirstAsync(u => u.UserId == cartDto.CartHeader.UserId);
+                cartFromDb.CouponCode = cartDto.CartHeader.CouponCode;
+                _db.CartHeaders.Update(cartFromDb);
+                await _db.SaveChangesAsync();
+                _response.Result = true;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.ToString();
+            }
+            return _response;
+        }
 
         //checks if there is an existing cart for the user
         //and either creates a new cart with its details or
