@@ -7,6 +7,7 @@ using AutoMapper;
 using Micro.Services.ShoppingCartAPI.Data;
 using Micro.Services.ShoppingCartAPI.Models;
 using Micro.Services.ShoppingCartAPI.Models.Dto;
+using Micro.Services.ShoppingCartAPI.Service.IService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,10 +24,12 @@ namespace Micro.Services.ShoppingCartAPI.Controllers
         private ResponseDto _response;
         private IMapper _mapper;
         private readonly AppDbContext _db;
-
-        public CartAPIController(AppDbContext db, IMapper mapper)
+        private IProductService _productService;
+        public CartAPIController(AppDbContext db,
+            IMapper mapper, IProductService productService)
         {
             _db = db;
+            _productService = productService;
             this._response = new ResponseDto();
             _mapper = mapper;
         }
@@ -46,8 +49,11 @@ namespace Micro.Services.ShoppingCartAPI.Controllers
                 cart.CartDetails = _mapper.Map<IEnumerable<CartDetailsDto>>(_db.CartDetails
                     .Where(u => u.CartHeaderId == cart.CartHeader.CartHeaderId));
 
+                IEnumerable<ProductDto> productDtos = await _productService.GetProducts();
+
                 foreach (var item in cart.CartDetails)
                 {
+                    item.Product = productDtos.FirstOrDefault(u => u.ProductId == item.ProductId);
                     cart.CartHeader.CartTotal += (item.Count * item.Product.Price);
                 }
 
