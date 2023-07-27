@@ -25,6 +25,7 @@ namespace Micro.Services.ShoppingCartAPI.Controllers
         private IMapper _mapper;
         private readonly AppDbContext _db;
         private IProductService _productService;
+        private ICouponService _couponService;
         public CartAPIController(AppDbContext db,
             IMapper mapper, IProductService productService)
         {
@@ -57,7 +58,17 @@ namespace Micro.Services.ShoppingCartAPI.Controllers
                     cart.CartHeader.CartTotal += (item.Count * item.Product.Price);
                 }
 
-                _response.Result = cart;
+                //apply coupon if any
+                if (!string.IsNullOrEmpty(cart.CartHeader.CouponCode))
+                {
+                    CouponDto coupon = await _couponService.GetCoupon(cart.CartHeader.CouponCode);
+                    if(coupon!=null && cart.CartHeader.CartTotal > coupon.MinAmount)
+                    {
+                        cart.CartHeader.CartTotal -= coupon.DiscountAmount;
+                        cart.CartHeader.Discount = coupon.DiscountAmount;
+                    }
+                }
+                    _response.Result = cart;
             }
             catch (Exception ex)
             {

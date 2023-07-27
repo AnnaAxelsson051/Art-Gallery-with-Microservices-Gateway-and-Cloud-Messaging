@@ -6,7 +6,7 @@ namespace Micro.Services.ShoppingCartAPI.Service.IService
 	//Loading products from product api
 	public interface ICouponService
 	{
-		Task<IEnumerable<ProductDto>> GetProducts();
+		Task<CouponDto> GetCoupon(string couponCode);
 	}
 }
 
