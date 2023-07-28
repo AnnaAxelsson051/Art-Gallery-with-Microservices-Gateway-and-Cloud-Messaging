@@ -15,6 +15,7 @@
     <None Remove="Views\Coupon\" />
     <None Remove="Views\Auth\" />
     <None Remove="Views\Product\" />
+    <None Remove="Views\Cart\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utility\" />
@@ -24,6 +25,7 @@
     <Folder Include="Views\Coupon\" />
     <Folder Include="Views\Auth\" />
     <Folder Include="Views\Product\" />
+    <Folder Include="Views\Cart\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
