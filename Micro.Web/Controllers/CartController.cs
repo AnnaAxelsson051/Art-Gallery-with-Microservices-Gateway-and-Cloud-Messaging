@@ -66,6 +66,20 @@ namespace Micro.Web.Controllers
             }
             return View();
         }
+
+        //Removing coupon from shopping cart
+        [HttpPost]
+        public async Task<IActionResult> RemoveCoupon(CartDto cartDto)
+        {
+            cartDto.CartHeader.CouponCode = "";
+            ResponseDto? response = await _cartService.ApplyCouponAsync(cartDto);
+            if (response != null & response.IsSuccess)
+            {
+                TempData["success"] = "Cart updated successfully";
+                return RedirectToAction(nameof(CartIndex));
+            }
+            return View();
+        }
     }
 }
 
