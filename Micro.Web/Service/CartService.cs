@@ -13,7 +13,7 @@ namespace Micro.Web.Service
             _baseService = baseService;
         }
 
-        public async Task<ResponseDto?> ApplyCouponsAsync(CartDto cartDto)
+        public async Task<ResponseDto?> ApplyCouponAsync(CartDto cartDto)
         {
             return await _baseService.SendAsync(new RequestDto()
             {

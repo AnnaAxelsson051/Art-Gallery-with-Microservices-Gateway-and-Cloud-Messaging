@@ -9,7 +9,7 @@ namespace Micro.Web.Service
         Task<ResponseDto?> GetCartByUserIdAsync(string userId);
         Task<ResponseDto?> UpsertCartAsync(CartDto cartDto);
         Task<ResponseDto?> RemoveFromCartAsync(int cartDetailsId);
-        Task<ResponseDto?> ApplyCouponsAsync(CartDto cartDto);
+        Task<ResponseDto?> ApplyCouponAsync(CartDto cartDto);
     }
 }
 

@@ -7,6 +7,7 @@ using Micro.Web.Models;
 using Micro.Web.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Newtonsoft.Json;
 
 namespace Micro.Web.Controllers
@@ -19,6 +20,8 @@ namespace Micro.Web.Controllers
             _cartService = cartService;
         }
 
+        //Returnig a view containing the shopping cart details of
+        //currently logged-in user
         [Authorize]
         public async Task <IActionResult> CartIndex()
         {
@@ -35,6 +38,33 @@ namespace Micro.Web.Controllers
                 return cartDto;
             }
             return new CartDto();
+        }
+
+        //Removing item from cart
+        public async Task<IActionResult> Remove(int cartDetailsId)
+        {
+            var userId = User.Claims.Where(u => u.Type == JwtRegisteredClaimNames.Sub)?.FirstOrDefault()?.Value;
+            ResponseDto? response = await _cartService.RemoveFromCartAsync(cartDetailsId);
+            if (response != null & response.IsSuccess)
+            {
+                TempData["success"] = "Cart updated successfully";
+                return RedirectToAction(nameof(CartIndex));
+            }
+            return View();
+        }
+
+        //Applying coupon to user shopping cart
+        [HttpPost]
+        public async Task<IActionResult> ApplyCoupon(CartDto cartDto)
+        {
+
+            ResponseDto? response = await _cartService.ApplyCouponAsync(cartDto);
+            if (response != null & response.IsSuccess)
+            {
+                TempData["success"] = "Cart updated successfully";
+                return RedirectToAction(nameof(CartIndex));
+            }
+            return View();
         }
     }
 }
