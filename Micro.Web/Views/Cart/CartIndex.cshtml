@@ -1,4 +1,5 @@
-﻿
+﻿@model CartDto
+
 <form method="post">
     <br />
     <div class="">
@@ -8,7 +9,7 @@
                     <h3 class="text-success"><i class="bi bi-cart"></i> &nbsp; Shopping Cart</h3>
                 </div>
                 <div class="col-6 text-end">
-                    <a class="btn btn-outline-warning mt-2 btn-sm">Continue Shopping</a>
+                    <a asp-action="Index" asp-controller="Home" class="btn btn-outline-warning mt-2 btn-sm">Continue Shopping</a>
                 </div>
             </div>
             <div class="card-body">
@@ -30,26 +31,30 @@
                     </div>
                 </div>
                 <hr />
+
+                @foreach (var cartObj in Model.CartDetails)
+                    {
                 <div class="row h-100">
                     <div class="col-4 col-md-2 text-center py-2">
-                        <img src="https://placehold.co/600x400" class="rounded" width="100%" />
+                        <img src="@cartObj.Product.ImageUrl" class="rounded" width="100%" />
                     </div>
                     <div class="col-8 col-md-5">
-                        <h5>Name</h5>
-                        <div style="font-size:11px;">Description</div>
+                        <h5>@cartObj.Product.Name</h5>
+                        <div style="font-size:11px;">@Html.Raw(cartObj.Product.Description)</div>
                     </div>
                     <div class="col-3 col-md-2 pt-md-4" style="font-size:11px;">
-                        <span style="font-size:17px;">$$ </span>
+                        <span style="font-size:17px;">@string.Format("{0:c}",cartObj.Product.Price)</span>
                     </div>
                     <div class="col-3 col-md-2 pt-md-4" style="font-size:11px;">
-                        <span style="font-size:17px;"> Count</span>
+                        <span style="font-size:17px;">@cartObj.Count</span>
                     </div>
                     <div class="col-2 col-lg-1 p-0 pt-lg-4 text-center">
-                        <a class="btn btn-sm btn-danger">
+                        <a asp-action="Remove" asp-route-cartDetailsId="@cartObj.CartDetailsId" class="btn btn-sm btn-danger">
                             <i class="bi bi-trash-fill"></i>
                         </a>
                     </div>
                 </div>
+                    }
                 <hr />
                 <div class="row">
                     <div class="col-6">
