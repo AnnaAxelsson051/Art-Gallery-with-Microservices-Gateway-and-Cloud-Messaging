@@ -28,6 +28,7 @@
     <None Remove="Controllers\" />
     <None Remove="Models\Dto\" />
     <None Remove="Properties\" />
+    <None Remove="Messaging\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
@@ -35,6 +36,7 @@
     <Folder Include="Controllers\" />
     <Folder Include="Models\Dto\" />
     <Folder Include="Properties\" />
+    <Folder Include="Messaging\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Models\Dto\Properties\launchSettings.json" />
