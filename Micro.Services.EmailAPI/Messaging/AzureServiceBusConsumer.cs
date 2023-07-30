@@ -1,11 +1,26 @@
 ﻿using System;
+using Azure.Messaging.ServiceBus;
+
 namespace Micro.Services.EmailAPI.Messaging
-{
+{ 
 	public class AzureServiceBusConsumer
 	{
-		public AzureServiceBusConsumer()
+	private readonly string serviceBusConnectionString;
+    private readonly string emailCartQueue;
+    private readonly IConfiguration _configuration;
+
+		private ServiceBusProcessor _emailCartProcessor;
+
+		public AzureServiceBusConsumer (IConfiguration configuration)
 		{
+			_configuration = configuration;
+			serviceBusConnectionString = _configuration.GetValue<string>("ServiceBusConnectionString");
+			emailCartQueue = _configuration.GetValue<string>("TopicAndQueueNames:EmailShoppingCartQueue");
+
+			var client = new ServiceBusClient(serviceBusConnectionString);
+			_emailCartProcessor = client.CreateProcessor(emailCartQueue);
 		}
+       }	
 	}
-}
+
 
