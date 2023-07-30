@@ -67,6 +67,20 @@ namespace Micro.Web.Controllers
             return View();
         }
 
+        //Sending cart details via email
+        [HttpPost]
+        public async Task<IActionResult> EmailCart(CartDto cartDto)
+        {
+
+            ResponseDto? response = await _cartService.EmailCart(cartDto);
+            if (response != null & response.IsSuccess)
+            {
+                TempData["success"] = "Email will be processed and sent shortly.";
+                return RedirectToAction(nameof(CartIndex));
+            }
+            return View();
+        }
+
         //Removing coupon from shopping cart
         [HttpPost]
         public async Task<IActionResult> RemoveCoupon(CartDto cartDto)
