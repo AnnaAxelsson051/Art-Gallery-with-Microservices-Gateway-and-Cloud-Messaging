@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Services.ProductAPI",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Services.ShoppingCartAPI", "Micro.Services.ShoppingCartAPI\Micro.Services.ShoppingCartAPI.csproj", "{BA622AED-4D7C-4E03-8F7B-5CCBA31D9DEF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.MessageBus", "Micro.MessageBus\Micro.MessageBus.csproj", "{1436BCFA-9EAB-4740-A755-283B04EC5E32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{BA622AED-4D7C-4E03-8F7B-5CCBA31D9DEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA622AED-4D7C-4E03-8F7B-5CCBA31D9DEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA622AED-4D7C-4E03-8F7B-5CCBA31D9DEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1436BCFA-9EAB-4740-A755-283B04EC5E32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1436BCFA-9EAB-4740-A755-283B04EC5E32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1436BCFA-9EAB-4740-A755-283B04EC5E32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1436BCFA-9EAB-4740-A755-283B04EC5E32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,5 +66,6 @@ Global
 		{D9D0646E-6922-4E79-A547-65650C700D3D} = {62F3167B-2B67-49F7-925E-A3C8C8FA9F95}
 		{2E4CD933-4B6D-4FD6-9835-1547617E8193} = {62F3167B-2B67-49F7-925E-A3C8C8FA9F95}
 		{BA622AED-4D7C-4E03-8F7B-5CCBA31D9DEF} = {62F3167B-2B67-49F7-925E-A3C8C8FA9F95}
+		{1436BCFA-9EAB-4740-A755-283B04EC5E32} = {583B0C0E-8332-481E-9813-1AACECAF43EE}
 	EndGlobalSection
 EndGlobal
