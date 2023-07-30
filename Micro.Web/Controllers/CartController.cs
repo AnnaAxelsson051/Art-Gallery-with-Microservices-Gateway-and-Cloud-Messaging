@@ -23,7 +23,7 @@ namespace Micro.Web.Controllers
         //Returnig a view containing the shopping cart details of
         //currently logged-in user
         [Authorize]
-        public async Task <IActionResult> CartIndex()
+        public async Task<IActionResult> CartIndex()
         {
             return View(await LoadCartDtoBasedOnLoggedInUser());
         }
@@ -32,7 +32,7 @@ namespace Micro.Web.Controllers
         {
             var userId = User.Claims.Where(u => u.Type == JwtRegisteredClaimNames.Sub)?.FirstOrDefault()?.Value;
             ResponseDto? response = await _cartService.GetCartByUserIdAsync(userId);
-            if(response != null & response.IsSuccess)
+            if (response != null & response.IsSuccess)
             {
                 CartDto cartDto = JsonConvert.DeserializeObject<CartDto>(Convert.ToString(response.Result));
                 return cartDto;
@@ -71,8 +71,9 @@ namespace Micro.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> EmailCart(CartDto cartDto)
         {
-
-            ResponseDto? response = await _cartService.EmailCart(cartDto);
+            CartDto cart = await LoadCartDtoBasedOnLoggedInUser();
+            cart.CartHeader.Email = User.Claims.Where(u => u.Type == JwtRegisteredClaimNames.Email)?.FirstOrDefault()?.Value;
+            ResponseDto? response = await _cartService.EmailCart(cart);
             if (response != null & response.IsSuccess)
             {
                 TempData["success"] = "Email will be processed and sent shortly.";
@@ -93,7 +94,7 @@ namespace Micro.Web.Controllers
                 return RedirectToAction(nameof(CartIndex));
             }
             return View();
-        }
     }
+  }
 }
 
