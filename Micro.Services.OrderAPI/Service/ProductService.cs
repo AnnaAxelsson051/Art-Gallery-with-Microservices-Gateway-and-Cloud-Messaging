@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Micro.Services.ShoppingCartAPI.Models.Dto;
+using Micro.Services.OrderAPI.Models.Dto;
 using Micro.Services.ShoppingCartAPI.Service.IService;
 using Newtonsoft.Json;
 

@@ -1,5 +1,5 @@
 ﻿using System;
-using Micro.Services.ShoppingCartAPI.Models.Dto;
+using Micro.Services.OrderAPI.Models.Dto;
 
 namespace Micro.Services.ShoppingCartAPI.Service.IService
 {
