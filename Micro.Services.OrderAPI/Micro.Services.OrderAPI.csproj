@@ -25,9 +25,24 @@
   <ItemGroup>
     <None Remove="Models\" />
     <None Remove="Models\Dto\" />
+    <None Remove="Controllers\" />
+    <None Remove="Utility\" />
+    <None Remove="Service\" />
+    <None Remove="Data\" />
+    <None Remove="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Models\Dto\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Utility\" />
+    <Folder Include="Service\" />
+    <Folder Include="Data\" />
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Micro.MessageBus\Micro.MessageBus.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 </Project>
