@@ -16,45 +16,51 @@ namespace Micro.Services.EmailAPI.Messaging
 	{
 	private readonly string serviceBusConnectionString;
     private readonly string emailCartQueue;
+    private readonly string registerUserQueue;
     private readonly IConfiguration _configuration;
     private readonly EmailService _emailService;
 
         private ServiceBusProcessor _emailCartProcessor;
+        private ServiceBusProcessor _registerUserProcessor;
 
-		public AzureServiceBusConsumer (IConfiguration configuration, EmailService emailService)
+        public AzureServiceBusConsumer (IConfiguration configuration, EmailService emailService)
 		{
             _emailService = emailService;
 			_configuration = configuration;
 			serviceBusConnectionString = _configuration.GetValue<string>("ServiceBusConnectionString");
 			emailCartQueue = _configuration.GetValue<string>("TopicAndQueueNames:EmailShoppingCartQueue");
+            registerUserQueue = _configuration.GetValue<string>("TopicAndQueueNames:RegisterUserQueue");
 
-			var client = new ServiceBusClient(serviceBusConnectionString);
+            var client = new ServiceBusClient(serviceBusConnectionString);
 			_emailCartProcessor = client.CreateProcessor(emailCartQueue);
+            _registerUserProcessor = client.CreateProcessor(registerUserQueue);
+
         }
 
-       // When start is called, the message processor is configured to
-       // process incoming messages and handle potential errors
+        //Starts the processing of messages from two
+        //Service Bus processors
         public async Task Start()
         {
             _emailCartProcessor.ProcessMessageAsync += OnEmailCartRequestReceived;
             _emailCartProcessor.ProcessErrorAsync += ErrorHandler;
+            await _emailCartProcessor.StartProcessingAsync();
+
+            _registerUserProcessor.ProcessMessageAsync += OnUserRegisterRequestReceived;
+            _registerUserProcessor.ProcessErrorAsync += ErrorHandler;
+            await _registerUserProcessor.StartProcessingAsync();
         }
 
-        private Task ErrorHandler(ProcessErrorEventArgs args)
-        {
-            Console.WriteLine(args.Exception.ToString());
-            return Task.CompletedTask;
-        }
-
-        //stops the message processing, disposes the message processor and starts processing again
+        //Stops the message processing and disposes message processor 
         public async Task Stop()
         {
             await _emailCartProcessor.StopProcessingAsync();
             await _emailCartProcessor.DisposeAsync();
-            await _emailCartProcessor.StartProcessingAsync();
+
+            await _registerUserProcessor.StopProcessingAsync();
+            await _registerUserProcessor.DisposeAsync();
         }
 
-        //Processing an incoming message from an Azure Service Bus queue
+        //Processing an incoming message from an Service Bus queue
         private async Task OnEmailCartRequestReceived(ProcessMessageEventArgs args)
         {
             var message = args.Message;
@@ -70,6 +76,31 @@ namespace Micro.Services.EmailAPI.Messaging
             {
                 throw;
             }
+        }
+
+        //Processesing incoming messages from a Service Bus queue
+        //for user registration requests
+        private async Task OnUserRegisterRequestReceived(ProcessMessageEventArgs args)
+        {
+            var message = args.Message;
+            var body = Encoding.UTF8.GetString(message.Body);
+
+           string email = JsonConvert.DeserializeObject<string>(body);
+            try
+            {
+                await _emailService.RegisterUserEmailAndLog(email);
+                await args.CompleteMessageAsync(args.Message);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        private Task ErrorHandler(ProcessErrorEventArgs args)
+        {
+            Console.WriteLine(args.Exception.ToString());
+            return Task.CompletedTask;
         }
     }	
 	}

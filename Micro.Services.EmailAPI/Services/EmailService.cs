@@ -37,6 +37,12 @@ namespace Micro.Services.EmailAPI.Services
 
         }
 
+        public async Task RegisterUserEmailAndLog(string email)
+        {
+            string message = "User Registration Successful. <br/> Email:" + email;
+            await LogAndEmail(message, "a.axelsson51@gmail.com");
+        }
+
         //Logging the email
         private async Task<bool> LogAndEmail(string message, string email)
         {
