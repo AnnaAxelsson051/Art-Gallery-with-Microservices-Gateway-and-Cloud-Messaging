@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Micro.MessageBus;
 using Micro.Services.AuthAPI.Models.Dto;
 using Micro.Services.AuthAPI.Service.IService;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +16,14 @@ namespace Micro.Services.AuthAPI.Controllers
     {
 
         private readonly IAuthService _authService;
+        private readonly IMessageBus _messageBus;
+        private readonly IConfiguration _configuration;
         protected ResponseDto _response;
-        public AuthAPIController(IAuthService authService)
+        public AuthAPIController(IAuthService authService, IMessageBus messageBus, IConfiguration configuration)
         {
+            _configuration = configuration;
             _authService = authService;
+            _messageBus = messageBus;
             _response = new();
         }
 
@@ -34,6 +39,7 @@ namespace Micro.Services.AuthAPI.Controllers
                 _response.Message = errorMessage;
                 return BadRequest(_response);
             }
+            await _messageBus.PublishMessage(model.Email, _configuration.GetValue<string>("RegisterUserQueue:RegisterUserQueue"));
             return Ok(_response);
         }
 

@@ -17,11 +17,11 @@ namespace Micro.Services.EmailAPI.Messaging
 	private readonly string serviceBusConnectionString;
     private readonly string emailCartQueue;
     private readonly IConfiguration _configuration;
-    private readonly IEmailService _emailService;
+    private readonly EmailService _emailService;
 
         private ServiceBusProcessor _emailCartProcessor;
 
-		public AzureServiceBusConsumer (IConfiguration configuration, IEmailService emailService)
+		public AzureServiceBusConsumer (IConfiguration configuration, EmailService emailService)
 		{
             _emailService = emailService;
 			_configuration = configuration;

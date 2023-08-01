@@ -39,4 +39,9 @@
     <Folder Include="Service\" />
     <Folder Include="Service\IService\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Micro.MessageBus\Micro.MessageBus.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
