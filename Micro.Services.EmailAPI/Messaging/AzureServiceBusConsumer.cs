@@ -36,6 +36,12 @@ namespace Micro.Services.EmailAPI.Messaging
             return Task.CompletedTask;
         }
 
+        public async Task Stop()
+        {
+            await _emailCartProcessor.StopProcessingAsync();
+            await _emailCartProcessor.DisposeAsync();
+        }
+
         private async Task OnEmailCartRequestReceived(ProcessMessageEventArgs args)
         {
             var message = args.Message;
@@ -50,11 +56,6 @@ namespace Micro.Services.EmailAPI.Messaging
             {
                 throw;
             }
-        }
-
-        public Task Stop()
-        {
-            throw new NotImplementedException();
         }
     }	
 	}
