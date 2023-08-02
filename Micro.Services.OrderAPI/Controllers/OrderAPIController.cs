@@ -11,6 +11,7 @@ using Micro.Services.OrderAPI.Utility;
 using Micro.Services.ShoppingCartAPI.Service.IService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Stripe;
 using Stripe.Checkout;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -127,6 +128,38 @@ namespace Micro.Services.OrderAPI.Controllers
         }
 
 
+
+        [Authorize]
+        [HttpPost("ValidateStripeSession")]
+        public async Task<ResponseDto> ValidateStripeSession([FromBody] int orderHeaderId)
+        {
+            try {
+                OrderHeader orderHeader = _db.OrderHeaders.First(u => u.OrderHeaderId == OrderHeaderId);
+
+                var service = new SessionService();
+                Session session = service.Get(orderHeader.StripeSessionId);
+
+                var paymentIntentService = new PaymentIntentService();
+                PaymentIntent paymentIntent = paymentIntentService.Get(session.PaymentIntentId);
+
+                if(paymentIntent.Status == "succeeded")
+                {
+                    //payment successful
+                    orderHeader.PaymentIntentId = paymentIntent.Id;
+                    orderHeader.Status = SD.Status_Approved;
+                    _db.SaveChanges();
+
+                    _response.Result = _mapper.Map<OrderHeaderDto>(orderHeader);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _response.Message = ex.Message;
+                _response.IsSuccess = false;
+            }
+            return _response;
+        }
     }
 }
 
