@@ -15,9 +15,11 @@ namespace Micro.Web.Controllers
     public class CartController : Controller
     {
         private readonly ICartService _cartService;
-        public CartController(ICartService cartService)
+        private readonly IOrderService _orderService;
+        public CartController(ICartService cartService, IOrderService orderService)
         {
             _cartService = cartService;
+            _orderService = orderService;
         }
 
         //Returnig a view containing the shopping cart details of
@@ -32,6 +34,24 @@ namespace Micro.Web.Controllers
         public async Task<IActionResult> Checkout()
         {
             return View(await LoadCartDtoBasedOnLoggedInUser());
+        }
+
+        [Authorize]
+        [ActionName("Checkout")]
+        public async Task<IActionResult> Checkout(CartDto cartDto)
+        {
+            CartDto cart = await LoadCartDtoBasedOnLoggedInUser();
+            cart.CartHeader.Phone = cartDto.CartHeader.Phone;
+            cart.CartHeader.Email = cartDto.CartHeader.Email;
+            cart.CartHeader.Name = cartDto.CartHeader.Name;
+
+            var response = await _orderService.CreateOrder(cart);
+            OrderHeaderDto orderHeaderDto = JsonConvert.DeserializeObject<OrderHeaderDto>(Convert.ToString(response.Result));
+            if (response != null && response.IsSuccess)
+            {
+                //get stripe session
+            }
+            return View();
         }
 
         private async Task<CartDto> LoadCartDtoBasedOnLoggedInUser()

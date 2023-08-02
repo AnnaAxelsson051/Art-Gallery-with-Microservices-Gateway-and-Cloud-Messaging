@@ -24,11 +24,11 @@
                         <span asp-validation-for="CartHeader.Name" class="text-danger"></span>
                     </div>
                     <div class="col-12 py-2">
-                        <input placeholder="email..." class="form-control" />
+                        <input placeholder="email..." asp-for="CartHeader.Email" class="form-control" />
                         <span asp-validation-for="CartHeader.Email" class="text-danger"></span>
                     </div>
                     <div class="col-12 py-2">
-                        <input class="form-control" placeholder="phone number..." />
+                        <input class="form-control" asp-for="CartHeader.Phone" placeholder="phone number..." />
                     </div>
                     <div class="col-12 pt-2">
                         <label class="col-form-label">Order will be ready in 30minutes after placing order. If you place order when restaurant is closed it will be ready next day.</label>
