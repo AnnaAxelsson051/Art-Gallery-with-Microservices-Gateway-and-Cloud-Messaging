@@ -7,6 +7,7 @@ namespace Micro.Web.Service
     {
 
         Task<ResponseDto?> CreateOrder(CartDto cartDto);
+        Task<ResponseDto?> CreateStripeSession(StripeRequestDto stripeRequestDto);
         
 
     }
