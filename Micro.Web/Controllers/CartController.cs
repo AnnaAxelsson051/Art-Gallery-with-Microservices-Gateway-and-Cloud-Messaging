@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Micro.Web.Models;
 using Micro.Web.Service;
+using Micro.Web.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
@@ -69,19 +70,16 @@ namespace Micro.Web.Controllers
 
         public async Task<IActionResult> Confirmation(int orderId)
         {
-            return View(orderId);
-        }
-
-        private async Task<CartDto> LoadCartDtoBasedOnLoggedInUser()
-        {
-            var userId = User.Claims.Where(u => u.Type == JwtRegisteredClaimNames.Sub)?.FirstOrDefault()?.Value;
-            ResponseDto? response = await _cartService.GetCartByUserIdAsync(userId);
+            ResponseDto? response = await _orderService.ValidateStripeSession(orderId);
             if (response != null & response.IsSuccess)
             {
-                CartDto cartDto = JsonConvert.DeserializeObject<CartDto>(Convert.ToString(response.Result));
-                return cartDto;
+                OrderHeaderDto orderHeader = JsonConvert.DeserializeObject<OrderHeaderDto>(Convert.ToString(response.Result));
+                if(orderHeader.Status == SD.Status_Approved)
+                {
+                    return View(orderId);
+                }
             }
-            return new CartDto();
+            return View(orderId);
         }
 
         //Removing item from cart
@@ -95,6 +93,18 @@ namespace Micro.Web.Controllers
                 return RedirectToAction(nameof(CartIndex));
             }
             return View();
+        }
+
+        private async Task<CartDto> LoadCartDtoBasedOnLoggedInUser()
+        {
+            var userId = User.Claims.Where(u => u.Type == JwtRegisteredClaimNames.Sub)?.FirstOrDefault()?.Value;
+            ResponseDto? response = await _cartService.GetCartByUserIdAsync(userId);
+            if (response != null & response.IsSuccess)
+            {
+                CartDto cartDto = JsonConvert.DeserializeObject<CartDto>(Convert.ToString(response.Result));
+                return cartDto;
+            }
+            return new CartDto();
         }
 
         //Applying coupon to user shopping cart
