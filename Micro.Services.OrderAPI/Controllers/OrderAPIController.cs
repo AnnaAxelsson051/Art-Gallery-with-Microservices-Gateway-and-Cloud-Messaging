@@ -127,14 +127,14 @@ namespace Micro.Services.OrderAPI.Controllers
             return _response;
         }
 
-
-
+        //Validates a Stripe payment session for an order and updates the order
+        //payment details and status if the payment is successful, returning the updated order information as response
         [Authorize]
         [HttpPost("ValidateStripeSession")]
         public async Task<ResponseDto> ValidateStripeSession([FromBody] int orderHeaderId)
         {
             try {
-                OrderHeader orderHeader = _db.OrderHeaders.First(u => u.OrderHeaderId == OrderHeaderId);
+                OrderHeader orderHeader = _db.OrderHeaders.First(u => u.OrderHeaderId == orderHeaderId);
 
                 var service = new SessionService();
                 Session session = service.Get(orderHeader.StripeSessionId);
