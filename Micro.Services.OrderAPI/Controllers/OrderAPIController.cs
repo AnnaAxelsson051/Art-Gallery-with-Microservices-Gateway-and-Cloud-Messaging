@@ -133,7 +133,9 @@ namespace Micro.Services.OrderAPI.Controllers
         }
 
         //Validates a Stripe payment session for an order and updates the order
-        //payment details and status if the payment is successful, returning the updated order information as response
+        //payment details and status if the payment is successful
+        //publishes a rewardsDto message to a topic in message bus
+        //with the topic name retrieved from the configuration
         [Authorize]
         [HttpPost("ValidateStripeSession")]
         public async Task<ResponseDto> ValidateStripeSession([FromBody] int orderHeaderId)
