@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Threading.Tasks;
 using AutoMapper;
 using Micro.MessageBus;
@@ -214,6 +215,40 @@ namespace Micro.Services.OrderAPI.Controllers
             catch (Exception ex)
             {
                 _response.Message = ex.Message;
+                _response.IsSuccess = false;
+            }
+            return _response;
+        }
+
+        //Updating the status of an order, If new status is set to
+        //"Cancelled" initiates a refund for the corresponding payment using Stripe 
+        [Authorize]
+        [HttpPost("UpdateOrderStatus/{orderId:int}")]
+        public async Task<ResponseDto> UpdateOrderStatus(int orderId, [FromBody] string newStatus)
+        {
+            try
+            {
+                OrderHeader orderHeader = _db.OrderHeaders.First(u => u.OrderHeaderId == orderId);
+                if (orderHeader != null)
+                {
+                    if (newStatus == SD.Status_Cancelled)
+                    {
+                        var options = new RefundCreateOptions
+                        {
+                            Reason = RefundReasons.RequestedByCustomer,
+                            PaymentIntent = orderHeader.PaymentIntentId
+                        };
+
+                        var service = new RefundService();
+                        Refund refund = service.Create(options);
+                        orderHeader.Status = newStatus;
+                    }
+                    orderHeader.Status = newStatus;
+                    _db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
                 _response.IsSuccess = false;
             }
             return _response;
