@@ -20,6 +20,8 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.9" />
+    <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.15.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,11 +29,15 @@
     <None Remove="Data\" />
     <None Remove="Message\" />
     <None Remove="Services\" />
+    <None Remove="Messaging\" />
+    <None Remove="Extension\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Data\" />
     <Folder Include="Message\" />
     <Folder Include="Services\" />
+    <Folder Include="Messaging\" />
+    <Folder Include="Extension\" />
   </ItemGroup>
 </Project>
