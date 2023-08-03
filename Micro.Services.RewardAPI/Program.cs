@@ -1,4 +1,5 @@
 ﻿using Micro.Services.RewardAPI.Data;
+using Micro.Services.RewardAPI.Extension;
 using Micro.Services.RewardAPI.Messaging;
 using Micro.Services.RewardAPI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -38,7 +39,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 //ApplyMigration();
-
+app.UseAzureServiceBusConsumer();
 app.Run();
 
 //Auto apply pending migrations to db 

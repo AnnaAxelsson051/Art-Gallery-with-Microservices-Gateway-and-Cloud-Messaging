@@ -34,7 +34,7 @@ namespace Micro.Services.EmailAPI.Messaging
 			emailCartQueue = _configuration.GetValue<string>("TopicAndQueueNames:EmailShoppingCartQueue");
             registerUserQueue = _configuration.GetValue<string>("TopicAndQueueNames:RegisterUserQueue");
             orderCreated_Topic = _configuration.GetValue<string>("TopicAndQueueNames:OrderCreatedTopic");
-            orderCreated_Email_Subscription = _configuration.GetValue<string>("TopicAndQueueNames:OrderCreatedEmail");
+            orderCreated_Email_Subscription = _configuration.GetValue<string>("TopicAndQueueNames:OrderCreated_Email_Subscription");
 
             var client = new ServiceBusClient(serviceBusConnectionString);
 			_emailCartProcessor = client.CreateProcessor(emailCartQueue);
@@ -108,7 +108,7 @@ namespace Micro.Services.EmailAPI.Messaging
             }
         }
 
-        //Processesing incoming messages from a Service Bus queue
+        //Processesing incoming messages from Service Bus 
         //for user registration requests
         private async Task OnUserRegisterRequestReceived(ProcessMessageEventArgs args)
         {
