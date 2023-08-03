@@ -33,6 +33,7 @@
     <None Remove="Messaging\" />
     <None Remove="Extension\" />
     <None Remove="Services\" />
+    <None Remove="Message\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
@@ -43,6 +44,7 @@
     <Folder Include="Messaging\" />
     <Folder Include="Extension\" />
     <Folder Include="Services\" />
+    <Folder Include="Message\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Models\Dto\Properties\launchSettings.json" />

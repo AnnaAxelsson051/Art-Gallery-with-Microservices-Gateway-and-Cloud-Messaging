@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using Micro.Services.EmailAPI.Data;
+using Micro.Services.EmailAPI.Message;
 using Micro.Services.EmailAPI.Models;
 using Micro.Services.EmailAPI.Models.Dto;
 using Microsoft.EntityFrameworkCore;
@@ -37,6 +38,14 @@ namespace Micro.Services.EmailAPI.Services
 
         }
 
+        //Logging and sending order placed email
+        public async Task LogOrderPlaced(RewardsMessage rewardsDto)
+        {
+            string message = "New order places. <br/> Order ID:" + rewardsDto.OrderId; ;
+            await LogAndEmail(message, "a.axelsson51@gmail.com");
+        }
+
+        //Registering user email and logging the event
         public async Task RegisterUserEmailAndLog(string email)
         {
             string message = "User Registration Successful. <br/> Email:" + email;
