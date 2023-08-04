@@ -56,7 +56,12 @@ namespace Micro.Web.Service
                                 content.Add(new StreamContent(file.OpenReadStream()), prop.Name, file.FileName);
                             }
                         }
+                        else
+                        {
+                            content.Add(new StringContent(value == null ? || value.ToString()), prop.Name);
+                        }
                     }
+                    message.Content = content;
                 } else
                 {
                     if (requestDto.Data != null)
