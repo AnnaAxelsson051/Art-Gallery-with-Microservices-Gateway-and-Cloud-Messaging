@@ -76,21 +76,21 @@
 
                             <ul class="list-group mb-3">
                                 @foreach (var detail in Model.OrderDetails)
-                                    {
-                                <li class="list-group-item d-flex justify-content-between p-2">
-                                    <div class="row container">
-                                        <div class="col-8">
+                                {
+                                    <li class="list-group-item d-flex justify-content-between p-2">
+                                        <div class="row container">
+                                            <div class="col-8">
 
-                                            <h6 class="my-0 text-white-50">@detail.ProductName</h6>
-                                            <small class="text-muted">Price : @detail.Price.ToString("c")</small><br />
-                                                        <small class="text-muted">Quantity : @detail.Count</small>
+                                                <h6 class="my-0 text-white-50">@detail.ProductName</h6>
+                                                <small class="text-muted">Price : @detail.Price.ToString("c")</small><br />
+                                                <small class="text-muted">Quantity : @detail.Count</small>
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                <p class="text-success">@((detail.Count * detail.Price).ToString("c"))</p>
+                                            </div>
                                         </div>
-                                        <div class="col-4 text-end">
-                                            <p class="text-success">@((detail.Count * detail.Price).ToString("c"))</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                    }
+                                    </li>
+                                }
                                 <li class="list-group-item bg-primary">
                                     <div class="row container">
                                         <div class="col-6">
@@ -102,10 +102,22 @@
                                     </div>
                                 </li>
                             </ul>
-
-                            <button type="submit" class="btn btn-success form-control my-1">Ready for Pickup</button>
-                            <button type="submit" class="btn btn-danger form-control my-1">Cancel Order</button>
-                        </div>
+                            @if (User.IsInRole(SD.RoleAdmin))
+                            {
+                                @if (Model.Status == SD.Status_Approved)
+                                {
+                                    <button asp-action="OrderReadyForPickup" asp-route-orderId="@Model.OrderHeaderId" type="submit" class="btn btn-success form-control my-1">Ready for Pickup</button>
+                                }
+                                @if (Model.Status == SD.Status_ReadyForPickup)
+                                    {
+                                    <button asp-action="CompleteOrder" asp-route-orderId="@Model.OrderHeaderId" type="submit" class="btn btn-success form-control my-1">Complete Order</button>
+                                    }
+                                    if (Model.Status == SD.Status_Approved || Model.Status == SD.Status_ReadyForPickup)
+                                    {
+                                    <button asp-action="CancelOrder" asp-route-orderId="@Model.OrderHeaderId" type="submit" class="btn btn-danger form-control my-1">Cancel Order</button>
+                                    }
+                                }
+                            </div>
                     </div>
                 </div>
             </div>
