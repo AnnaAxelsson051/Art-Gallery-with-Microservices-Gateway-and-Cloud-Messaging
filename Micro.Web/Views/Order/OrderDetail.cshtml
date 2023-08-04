@@ -50,13 +50,14 @@
                             <div class="row my-1">
                                 <div class="col-3">Session ID</div>
                                 <div class="col-9">
-                                    <input asp-for="@Model.OrderTime.ToShortDateString()" readonly class="form-control" />
+                                    <!--<input asp-for="@Model.OrderTime.ToShortDateString()" readonly class="form-control" />-->
+                                    <input asp-for="StripeSessionId" readonly class="form-control" />
                                 </div>
                             </div>
                             <div class="row my-1">
                                 <div class="col-3">Payment Intent ID</div>
                                 <div class="col-9">
-                                    <input readonly class="form-control" />
+                                    <input asp-for="PaymentIntentId" readonly class="form-control" />
                                 </div>
                             </div>
                                 }
@@ -97,7 +98,7 @@
                                             <h5 class="text-white">TOTAL </h5>
                                         </div>
                                         <div class="col-6 text-end">
-                                            <h5 class="text-white">OrderTotal</h5>
+                                            <h5 class="text-white">@Model.OrderTotal.ToString("c")</h5>
                                         </div>
                                     </div>
                                 </li>
