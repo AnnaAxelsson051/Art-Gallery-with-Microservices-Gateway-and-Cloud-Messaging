@@ -1,14 +1,30 @@
-﻿//Retrieving data from the get all endpoint
+﻿
 var dataTable;
 
 $(document).ready(function () {
+    var url = window.location.search;
     loadDataTable();
+    if (url.includes("approved")) {
+        loadDataTable("approved");
+    }
+    else {
+        if (url.includes("readyforpickup")) {
+            loadDataTable("readyforpickup");
+        }
+        else {
+            if (url.includes("cancelled"))
+                loadDataTable("cancelled");
+        }
+        else {
+            loadDataTable("all");
+        }
+    }
 });
 
-function loadDataTable() {
+function loadDataTable(status) {
     dataTable = $('#tblData').DataTable({
         order: [[0, 'desc']],
-        "ajax": { url: "/order/getall" },
+        "ajax": { url: "/order/getall?status=" + status },
         "columns": [
             { data: 'orderHeaderId', "width":"5%"},
             { data: 'email', "width": "25%" },
