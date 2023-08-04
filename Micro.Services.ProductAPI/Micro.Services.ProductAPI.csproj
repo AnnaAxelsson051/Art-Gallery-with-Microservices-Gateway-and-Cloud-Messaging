@@ -33,5 +33,11 @@
     <Folder Include="Models\Dto\" />
     <Folder Include="Data\" />
     <Folder Include="Extensions\" />
+    <Folder Include="wwwroot\" />
+    <Folder Include="wwwroot\ProductImages\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\" />
+    <Content Remove="wwwroot\ProductImages\" />
   </ItemGroup>
 </Project>
