@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Micro.Web.Utility;
 
 namespace Micro.Web.Models
 {
@@ -14,6 +15,8 @@ namespace Micro.Web.Models
         public string? ImageLocalPath { get; set; }
         [Range(1,100)]
         public int Count { get; set; } = 1;
+        [MaxFileSize(1)]
+        [AllowedExtensions(new string[] {".jpg", ".png"})]
         public IFormFile? Image { get; set; }
     }
 }
