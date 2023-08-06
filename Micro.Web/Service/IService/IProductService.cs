@@ -6,7 +6,6 @@ namespace Micro.Web.Service
     public interface IProductService
     {
 
-        Task<ResponseDto?> GetProductAsync(string productCode);
         Task<ResponseDto?> GetAllProductsAsync();
         Task<ResponseDto?> GetProductByIdAsync(int id);
         Task<ResponseDto?> CreateProductsAsync(ProductDto productDto);
