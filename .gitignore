@@ -12,7 +12,6 @@ tarballs/
 test-results/
 
 appsettings.json
-**/Migrations/*
 
 # Mac bundle stuff
 *.dmg
