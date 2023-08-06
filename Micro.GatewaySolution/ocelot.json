@@ -181,7 +181,7 @@
     //Order API
 
     {
-      "DownStreamPathTemplate": "/api/order/GetOrders/{id}",
+      "DownStreamPathTemplate": "/api/order/GetOrders?userId={id}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
