@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Micro.Web.Utility
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -25,20 +27,33 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <!--<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>-->
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-house"></i> Home</a>
                         </li>
                         <li class="nav-item">
-                            <!--<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a> Check out the art!-->
                             <a class="nav-link" asp-area="" asp-controller="Shop" asp-action="Index"><i class="bi bi-easel"></i> Gallery </a>
                         </li>
-                        <!--<li class="nav-item">
-        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-    </li>-->
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-brush"></i> Categories
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item">Classic</a></li>
+                                <li><a class="dropdown-item">Fine Art</a></li>
+                                <li><a class="dropdown-item">Futuristic</a></li>
+                                <li><a class="dropdown-item">Landscape</a></li>
+                                <li><a class="dropdown-item">Cityscape</a></li>
+                                <li><a class="dropdown-item">Portrait</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                            </ul>
+                        </li>
+
+                        <!--Only displaying content management dropdown to admin-->
+                        @if (User.IsInRole(SD.RoleAdmin))
+                            {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                               Content Management
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" asp-controller="Coupon" asp-action="CouponIndex">Coupon</a></li>
@@ -46,6 +61,7 @@
                                 <li><hr class="dropdown-divider"></li>
                             </ul>
                         </li>
+                            }
 
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Order" asp-action="OrderIndex">
