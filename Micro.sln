@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Services.OrderAPI", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Services.RewardAPI", "Micro.Services.RewardAPI\Micro.Services.RewardAPI.csproj", "{CA95DEE2-99D6-46DB-901A-30E1CCACF87A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.GatewaySolution", "Micro.GatewaySolution\Micro.GatewaySolution.csproj", "{F4DBA583-1276-4909-9629-A34E49F6FFBA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{CA95DEE2-99D6-46DB-901A-30E1CCACF87A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA95DEE2-99D6-46DB-901A-30E1CCACF87A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA95DEE2-99D6-46DB-901A-30E1CCACF87A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4DBA583-1276-4909-9629-A34E49F6FFBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4DBA583-1276-4909-9629-A34E49F6FFBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4DBA583-1276-4909-9629-A34E49F6FFBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4DBA583-1276-4909-9629-A34E49F6FFBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,5 +94,6 @@ Global
 		{664632A6-087D-4C17-9C73-81EFB8F91935} = {62F3167B-2B67-49F7-925E-A3C8C8FA9F95}
 		{06947961-86EF-41A8-BEF9-8F8E18590A75} = {62F3167B-2B67-49F7-925E-A3C8C8FA9F95}
 		{CA95DEE2-99D6-46DB-901A-30E1CCACF87A} = {62F3167B-2B67-49F7-925E-A3C8C8FA9F95}
+		{F4DBA583-1276-4909-9629-A34E49F6FFBA} = {289EBEEE-512C-40DF-9792-BABDA45C9A58}
 	EndGlobalSection
 EndGlobal
