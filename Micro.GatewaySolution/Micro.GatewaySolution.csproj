@@ -13,4 +13,10 @@
     <PackageReference Include="IdentityModel" Version="6.1.0" />
     <PackageReference Include="Ocelot" Version="19.0.2" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Extensions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
 </Project>
