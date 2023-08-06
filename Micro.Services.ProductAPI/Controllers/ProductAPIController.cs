@@ -13,7 +13,7 @@ namespace Micro.Services.ProductAPI.Controllers
 {
     [Route("api/product")]
     [ApiController]
-    public class ProductAPIController : Controller
+    public class ProductAPIController : ControllerBase
     {
         private readonly AppDbContext _db;
         private ResponseDto _response;
@@ -61,7 +61,6 @@ namespace Micro.Services.ProductAPI.Controllers
             return _response;
         }
 
-
         //Create a product
         [HttpPost]
         [Authorize(Roles = "ADMIN")]
@@ -78,7 +77,9 @@ namespace Micro.Services.ProductAPI.Controllers
 
                     string fileName = product.ProductId + Path.GetExtension(ProductDto.Image.FileName);
                     string filePath = @"wwwroot\ProductImages\" + fileName;
-                     var directoryLocation = Path.Combine(Directory.GetCurrentDirectory(), filePath);
+
+                    //I have added the if condition to remove the any image with same name if that exist in the folder by any change
+                    var directoryLocation = Path.Combine(Directory.GetCurrentDirectory(), filePath);
                     FileInfo file = new FileInfo(directoryLocation);
                     if (file.Exists)
                     {
@@ -110,21 +111,20 @@ namespace Micro.Services.ProductAPI.Controllers
             return _response;
         }
 
-
         //Update product with image
         [HttpPut]
         [Authorize(Roles = "ADMIN")]
-        public ResponseDto Put(ProductDto productDto)
+        public ResponseDto Put(ProductDto ProductDto)
         {
             try
             {
-                Product product = _mapper.Map<Product>(productDto);
+                Product product = _mapper.Map<Product>(ProductDto);
 
                 if (ProductDto.Image != null)
                 {
                     if (!string.IsNullOrEmpty(product.ImageLocalPath))
                     {
-                        var oldFilePathDirectory = Path.Combine(Directory.GetCurrentDirectory(), obj.ImageLocalPath);
+                        var oldFilePathDirectory = Path.Combine(Directory.GetCurrentDirectory(), product.ImageLocalPath);
                         FileInfo file = new FileInfo(oldFilePathDirectory);
                         if (file.Exists)
                         {
@@ -137,14 +137,15 @@ namespace Micro.Services.ProductAPI.Controllers
                     var filePathDirectory = Path.Combine(Directory.GetCurrentDirectory(), filePath);
                     using (var fileStream = new FileStream(filePathDirectory, FileMode.Create))
                     {
-                        productDto.Image.CopyTo(fileStream);
+                        ProductDto.Image.CopyTo(fileStream);
                     }
                     var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.Value}{HttpContext.Request.PathBase.Value}";
                     product.ImageUrl = baseUrl + "/ProductImages/" + fileName;
                     product.ImageLocalPath = filePath;
                 }
 
-                    _db.Products.Update(product);
+
+                _db.Products.Update(product);
                 _db.SaveChanges();
 
                 _response.Result = _mapper.Map<ProductDto>(product);
@@ -166,8 +167,7 @@ namespace Micro.Services.ProductAPI.Controllers
             try
             {
                 Product obj = _db.Products.First(u => u.ProductId == id);
-
-                if(!string.IsNullOrEmpty(obj.ImageLocalPath))
+                if (!string.IsNullOrEmpty(obj.ImageLocalPath))
                 {
                     var oldFilePathDirectory = Path.Combine(Directory.GetCurrentDirectory(), obj.ImageLocalPath);
                     FileInfo file = new FileInfo(oldFilePathDirectory);
@@ -176,7 +176,6 @@ namespace Micro.Services.ProductAPI.Controllers
                         file.Delete();
                     }
                 }
-
                 _db.Products.Remove(obj);
                 _db.SaveChanges();
             }
@@ -189,4 +188,3 @@ namespace Micro.Services.ProductAPI.Controllers
         }
     }
 }
-

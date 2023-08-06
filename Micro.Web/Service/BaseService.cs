@@ -1,10 +1,12 @@
-﻿using System;
-using System.Net;
-using System.Text;
+﻿using Micro.Web.Models;
+using Micro.Web.Service.IService;
 using Micro.Web.Models;
 using Micro.Web.Service.IService;
 using Newtonsoft.Json;
+using System.Net;
+using System.Text;
 using static Micro.Web.Utility.SD;
+
 
 namespace Micro.Web.Service
 {
@@ -12,19 +14,19 @@ namespace Micro.Web.Service
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ITokenProvider _tokenProvider;
-
         public BaseService(IHttpClientFactory httpClientFactory, ITokenProvider tokenProvider)
         {
             _httpClientFactory = httpClientFactory;
             _tokenProvider = tokenProvider;
         }
+
         public async Task<ResponseDto?> SendAsync(RequestDto requestDto, bool withBearer = true)
         {
             try
             {
-                HttpClient client = _httpClientFactory.CreateClient("MangoAPI");
+                HttpClient client = _httpClientFactory.CreateClient("MicroAPI");
                 HttpRequestMessage message = new();
-                if(requestDto.ContentType == ContentType.MultipartFormData)
+                if (requestDto.ContentType == ContentType.MultipartFormData)
                 {
                     message.Headers.Add("Accept", "*/*");
                 }
@@ -33,8 +35,7 @@ namespace Micro.Web.Service
                     message.Headers.Add("Accept", "application/json");
                 }
                 //token
-
-                if(withBearer)
+                if (withBearer)
                 {
                     var token = _tokenProvider.GetToken();
                     message.Headers.Add("Authorization", $"Bearer {token}");
@@ -42,13 +43,14 @@ namespace Micro.Web.Service
 
                 message.RequestUri = new Uri(requestDto.Url);
 
-                if(requestDto.ContentType == ContentType.MultipartFormData)
+                if (requestDto.ContentType == ContentType.MultipartFormData)
                 {
                     var content = new MultipartFormDataContent();
-                    foreach(var prop in requestDto.Data.GetType().GetProperties())
+
+                    foreach (var prop in requestDto.Data.GetType().GetProperties())
                     {
                         var value = prop.GetValue(requestDto.Data);
-                        if(value is FormFile)
+                        if (value is FormFile)
                         {
                             var file = (FormFile)value;
                             if (file != null)
@@ -58,11 +60,12 @@ namespace Micro.Web.Service
                         }
                         else
                         {
-                            content.Add(new StringContent(value == null ? || value.ToString()), prop.Name);
+                            content.Add(new StringContent(value == null ? "" : value.ToString()), prop.Name);
                         }
                     }
                     message.Content = content;
-                } else
+                }
+                else
                 {
                     if (requestDto.Data != null)
                     {
@@ -70,7 +73,12 @@ namespace Micro.Web.Service
                     }
                 }
 
+
+
+
+
                 HttpResponseMessage? apiResponse = null;
+
                 switch (requestDto.ApiType)
                 {
                     case ApiType.POST:
@@ -86,27 +94,26 @@ namespace Micro.Web.Service
                         message.Method = HttpMethod.Get;
                         break;
                 }
+
                 apiResponse = await client.SendAsync(message);
+
                 switch (apiResponse.StatusCode)
                 {
                     case HttpStatusCode.NotFound:
-                        return new()
-                        { IsSuccess = false, Message = "Not found" };
+                        return new() { IsSuccess = false, Message = "Not Found" };
                     case HttpStatusCode.Forbidden:
-                        return new()
-                        { IsSuccess = false, Message = "Access denied" };
+                        return new() { IsSuccess = false, Message = "Access Denied" };
                     case HttpStatusCode.Unauthorized:
-                        return new()
-                        { IsSuccess = false, Message = "Unauthorized" };
+                        return new() { IsSuccess = false, Message = "Unauthorized" };
                     case HttpStatusCode.InternalServerError:
-                        return new()
-                        { IsSuccess = false, Message = "Internal server error" };
+                        return new() { IsSuccess = false, Message = "Internal Server Error" };
                     default:
                         var apiContent = await apiResponse.Content.ReadAsStringAsync();
                         var apiResponseDto = JsonConvert.DeserializeObject<ResponseDto>(apiContent);
                         return apiResponseDto;
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 var dto = new ResponseDto
                 {
@@ -118,4 +125,3 @@ namespace Micro.Web.Service
         }
     }
 }
-

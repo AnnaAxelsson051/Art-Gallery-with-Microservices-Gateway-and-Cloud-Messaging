@@ -31,6 +31,7 @@
     <None Remove="Services\" />
     <None Remove="Messaging\" />
     <None Remove="Extension\" />
+    <None Remove="Controllers\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -39,5 +40,6 @@
     <Folder Include="Services\" />
     <Folder Include="Messaging\" />
     <Folder Include="Extension\" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 </Project>
