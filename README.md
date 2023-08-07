@@ -32,4 +32,5 @@ Features includes role based authorization and authentication, pagination, searc
 
 ## Application Flow
 
+![Flow chart](flow.png)
 
