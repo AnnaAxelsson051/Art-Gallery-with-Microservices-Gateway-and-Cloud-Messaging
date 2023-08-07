@@ -3,6 +3,8 @@
 
 ## User Interface
 
+![User Interface](user-interface.png)
+
 ---
 
 ## Description
