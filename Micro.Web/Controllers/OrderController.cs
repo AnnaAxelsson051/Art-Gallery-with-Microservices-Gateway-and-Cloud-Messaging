@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Micro.Web.Models;
 using Micro.Web.Service;
 using Micro.Web.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -21,12 +22,14 @@ namespace Micro.Web.Controllers
             _orderService = orderService;
         }
 
+        [Authorize]
         public IActionResult OrderIndex()
         {
             return View();
         }
 
         //Displaying order details to authorized users
+        [Authorize]
         public async Task<IActionResult> OrderDetail(int orderId)
         {
             OrderHeaderDto orderHeaderDto = new OrderHeaderDto();
