@@ -15,18 +15,26 @@ A full stack art gallery application with microservice architecture and MVC desi
 
 ## Technologies used
 
-- .Net Web API 
-- .Net Identity
+### Backend Technologies & Security
+
+- .Net Web API
 - Entity Framework Core
+- SQL Server Database
+- N-Layer implementation with Repository Pattern
 - Role Based Authorization & Authentication
-- Async and sync communication between microservices
+- .Net Identity
+
+### Microservices & Communication
+
 - Azure Service Bus - Topics and Queues
 - Ocelot gateway
-- Swagger 
-- N-Layer implementation with Repository Pattern
-- SQL Server Database
+- Async and sync communication between microservices
+
+### Frontend & Documentation
+
 - Razor
-- Bootstrap 
+- Bootstrap
+- Swagger
 
 ---
 
