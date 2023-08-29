@@ -32,5 +32,6 @@ A full stack art gallery application with microservice architecture and MVC desi
 
 ## Application Flow
 
+
 ![Flow chart](flow.png)
 
